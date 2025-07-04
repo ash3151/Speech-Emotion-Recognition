@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Speech Emotion Recognition</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Speech Emotion Recognition</h1>
+    <div class="info">
+  <p><strong>About the App:</strong> This app will detect emotion such as 'fear', 'happy' from the tone of audio provided. It can classify your voice into one of 7 emotions.</p>
+
+  <p><strong>How It Works:</strong> 
+    <ol>
+      <li>Upload a `.wav` file containing speech.</li>
+      <li>The model analyzes the audio and extracts important features (MFCCs).</li>
+      <li>It then classifies the emotion using a trained DL classifier.</li>
+      <li>The predicted emotion is shown instantly.</li>
+    </ol>
+  </p>
+
+  <p><strong>Model Training:</strong> 
+    This app uses a Deep Learning model trained on Toronto emotional speech set (TESS) available on kaggle. Mel Frequency Cepstral Coefficients (MFCCs) are extracted from audio files which are the features.
+  </p>
+  <p><strong>What are MFCCs and how they are extracted?</strong> 
+    Mel Frequency Cepstral Coefficients (MFCCs) represent how humans perceive sound. They capture the important patterns in speech—like pitch and tone—making them useful for recognizing emotions in voice recordings. The time domain audio signal is converted to power spectrum using Discrete Fourier Transform. Then log Amplitude spectrum is taken and passed through low-pass filter which removes high frequencies. Finally Discrete cosine transform is applied to get real-valued coefficents.
+  </p>
+</div>
+
+    <form id="upload-form">
+      <label for="file-upload" class="custom-file-upload">
+        Drag & Drop or Click to Upload (.wav)
+      </label>
+      <input id="file-upload" type="file" accept=".wav" name="audio" required>
+      <div id="upload-status" class="hidden">✅ File uploaded successfully!</div>
+      <button type="submit" id="predict-btn" disabled>Predict Emotion</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const uploadForm = document.getElementById('upload-form');
+    const fileInput = document.getElementById('file-upload');
+    const resultDiv = document.getElementById('result');
+    const uploadStatus = document.getElementById('upload-status');
+    const predictBtn = document.getElementById('predict-btn');
+
+    fileInput.onchange = () => {
+      if (fileInput.files.length > 0) {
+        uploadStatus.classList.remove('hidden');
+        predictBtn.disabled = false;
+      } else {
+        uploadStatus.classList.add('hidden');
+        predictBtn.disabled = true;
+      }
+    };
+
+    uploadForm.onsubmit = async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("audio", fileInput.files[0]);
+
+      const res = await fetch('/predict', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      resultDiv.innerText = `Predicted Emotion: ${data.emotion}`;
+    };
+  </script>
+</body>
+</html>

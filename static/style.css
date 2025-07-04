@@ -1,0 +1,106 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 40px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 24px;
+  color: #333;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  padding: 12px 20px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  background: #28a745;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 12px;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+#upload-status {
+  color: green;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #444;
+}
+
+.info {
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.info ol {
+  padding-left: 20px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .custom-file-upload, button {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  #result {
+    font-size: 18px;
+  }
+
+  .info {
+    font-size: 13px;
+  }
+}
